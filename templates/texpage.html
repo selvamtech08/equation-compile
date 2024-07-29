@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/htmx.org@2.0.1"></script>
+    <title>TeX Equation</title>
+    <style>
+        #title-info {
+            color: blue;
+        }
+
+        #preamble-info {
+            font-size: medium;
+            padding-top: 1pc;
+            color: fuchsia
+        }
+    </style>
+    <script>
+        function resetOutput() {
+            const myElement = document.getElementById("imgoutput");
+            myElement.innerHTML = "";
+        }
+    </script>
+</head>
+
+<body>
+    <div class="form-group container-fluid p-4">
+        <h4 id="title-info" style="font-family: 'Courier New', Courier, monospace;">Type your equation below:</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <form hx-post="/tex" hx-target="#imgoutput" hx-target="outerHTML">
+                    <div class="form-outline mb-4">
+                        <textarea style="font-size: large; min-width: 50px;" class="form-control" rows="6" name="equ"
+                            id="equ" placeholder="LaTeX"></textarea>
+                    </div>
+                    <button onclick="resetOutput()" class="btn btn-success"
+                        style="font-family: 'Courier New', Courier, monospace;" type="submit">Run</button>
+                    <div class="form-check form-switch mt-4">
+                        <input class="form-check-input" type="checkbox" name="equmode" id="equmode">
+                        <label class="form-check-label" for="equmode">Inline</label>
+                    </div>
+                    <h4 id="preamble-info" style="font-family: 'Courier New', Courier, monospace;">Type your preamble
+                        and macros below:</h4>
+                    <div class="form-outline mb-4">
+                        <textarea style="font-size: large; min-width: 50px;" class="form-control" rows="6"
+                            name="preamble" id="preamble" placeholder="Preamble"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <h5>Output:</h5>
+                <p><span id="imgoutput"><span></p>
+            </div>
+        </div>
+</body>
+
+</html>
